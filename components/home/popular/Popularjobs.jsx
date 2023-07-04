@@ -13,10 +13,9 @@ const Popularjobs = () => {
   const router = useRouter()
   const {data, isLoading, error} = useFetch('search',
    {
-    query:  'Python developer in Texas, USA',
+    query:  'React developer in paris',
     num_pages: '1'
   })
-
 
   return (
     <View style={styles.container}>
@@ -34,8 +33,8 @@ const Popularjobs = () => {
           <Text>Quelque chose s'est mal passé</Text>
         ) : (
           <FlatList 
-            data={[1, 2, 3, 4]}
-            renderItem={({item}) => (
+            data={data}
+            renderItem={({ item }) => (
               <PopularjobCard 
                 item={item}
               />
