@@ -14,7 +14,6 @@ const TabButton = ({ name, activeTab, onHandleSearchType }) => (
 );
 
 const Tabs = ({ tabs, activeTab, setActiveTab }) => {
-  console.log(activeTab);
   return (
     <View style={styles.container}>
       <FlatList
