@@ -1,28 +1,31 @@
+import React, { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from "expo-router";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
+import styles from "./nearbyjobs.style";
 
-import styles from './nearbyjobs.style'
-
-import { COLORS, SIZES } from '../../../constants'
-import NearbyJobCard from '../../common/cards/nearby/NearbyJobCard'
-import { useRouter } from 'expo-router'
-import useFetch from '../../../hook/useFetch'
-
+import { COLORS, SIZES } from "../../../constants";
+import NearbyJobCard from "../../common/cards/nearby/NearbyJobCard";
+import useFetch from "../../../hook/useFetch";
 
 const Nearbyjobs = () => {
-  const router = useRouter()
-  const {data, isLoading, error} = useFetch('search',
-   {
-    query:  'React developer in paris',
-    num_pages: '1'
-  })
+  const router = useRouter();
+
+  const { data, isLoading, error } = useFetch("search", {
+    query: "React Native developer",
+    num_pages: "1",
+  });
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Nearby jobs</Text>
+        <TouchableOpacity onPress={() => save()}>
+          <Text style={styles.headerTitle}>Nearby jobs</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity>
-          <Text style={styles.cardsContainer}>Tout afficher</Text>
+          <Text style={styles.headerBtn}>Tout afficher</Text>
         </TouchableOpacity>
       </View>
 
@@ -33,18 +36,16 @@ const Nearbyjobs = () => {
           <Text>Quelque chose s'est mal passé</Text>
         ) : (
           data?.map((job) => (
-            <NearbyJobCard 
+            <NearbyJobCard
               job={job}
-              key={`nearby-job-${job?.job_id}`}
-              handleNavigate={() => router.push(`/job-details/${job?.job_id}`)}
+              key={`nearby-job-${job.job_id}`}
+              handleNavigate={() => router.push(`/job-details/${job.job_id}`)}
             />
           ))
-        )
-      
-      }
+        )}
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default Nearbyjobs
+export default Nearbyjobs;
